@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica de caracteres y escala para dispositivos móviles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título que aparece en la pestaña del navegador -->
+    <title>Nairb Games - Catálogo PS4</title>
+    
+    <!-- Importamos una fuente moderna estilo gamer desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================================
+           ESTILOS GENERALES Y VARIABLES DE COLOR (CSS)
+           ========================================================= */
+        :root {
+            --color-fondo: #090c15;       /* Azul oscuro casi negro para el fondo */
+            --color-tarjeta: #131a2c;     /* Fondo de cada tarjeta de juego */
+            --color-ps4: #0070d1;         /* Azul característico de PlayStation */
+            --color-neon: #00f2fe;        /* Azul neón brillante para efectos */
+            --color-texto: #ffffff;       /* Color blanco para el texto principal */
+        }
+
+        /* Reseteo de márgenes por defecto del navegador */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilo del cuerpo de la página */
+        body {
+            background-color: var(--color-fondo);
+            /* Fondo con un degradado radial sutil para darle profundidad */
+            background-image: radial-gradient(circle at top center, #162447 0%, #090c15 70%);
+            color: var(--color-texto);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* =========================================================
+           ENCABEZADO (HEADER)
+           ========================================================= */
+        header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            border-bottom: 2px solid rgba(0, 242, 254, 0.2);
+            background: rgba(9, 12, 21, 0.8);
+            backdrop-filter: blur(10px); /* Efecto vidrio esmerilado */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* Título principal "NAIRB GAMES" con efecto neón */
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ffffff, var(--color-neon), var(--color-ps4));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
+        }
+
+        header p {
+            color: #a0aec0;
+            margin-top: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* =========================================================
+           CONTENEDOR DEL CATÁLOGO (GRID)
+           ========================================================= */
+        .catalogo-contenedor {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 0 20px;
+            /* Crea una cuadrícula adaptable según el tamaño de la pantalla */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 30px;
+        }
+
+        /* =========================================================
+           TARJETA DE CADA VIDEOJUEGO Y EFECTOS VISUALES
+           ========================================================= */
+        .juego-card {
+            background-color: var(--color-tarjeta);
+            border-radius: 15px;
+            overflow: hidden; /* Evita que la imagen se salga al hacer zoom */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* Transición suave para los efectos al pasar el mouse */
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        /* Efecto al pasar el cursor (mouse) por encima de la tarjeta */
+        .juego-card:hover {
+            transform: translateY(-12px); /* Eleva la tarjeta hacia arriba */
+            border-color: var(--color-neon); /* Ilumina el borde en azul neón */
+            box-shadow: 0 15px 35px rgba(0, 242, 254, 0.25); /* Resplandor exterior */
+        }
+
+        /* Contenedor de la imagen de presentación */
+        .imagen-contenedor {
+            position: relative;
+            width: 100%;
+            height: 360px;
+            overflow: hidden;
+            background-color: #05070c;
+        }
+
+        /* Estilo de la imagen de portada */
+        .imagen-contenedor img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ajusta la imagen sin deformarla */
+            transition: transform 0.5s ease;
+        }
+
+        /* Efecto zoom en la imagen cuando se pasa el mouse por la tarjeta */
+        .juego-card:hover .imagen-contenedor img {
+            transform: scale(1.1);
+        }
+
+        /* Etiqueta flotante de "PS4" sobre la imagen */
+        .etiqueta-ps4 {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--color-ps4);
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        /* Área de información (Título, género y botón) */
+        .juego-info {
+            padding: 22px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .juego-info h2 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .juego-genero {
+            font-size: 0.85rem;
+            color: #8b9bb4;
+            margin-bottom: 20px;
+        }
+
+        /* =========================================================
+           BOTÓN DE DESCARGA LLAMATIVO
+           ========================================================= */
+        .btn-descargar {
+            display: inline-block;
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(45deg, var(--color-ps4), #00c6ff);
+            color: white;
+            text-decoration: none; /* Quita el subrayado típico de los enlaces */
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 112, 209, 0.4);
+        }
+
+        /* Efecto de brillo al pasar el mouse sobre el botón */
+        .btn-descargar:hover {
+            background: linear-gradient(45deg, #00c6ff, var(--color-neon));
+            color: #090c15;
+            box-shadow: 0 0 25px var(--color-neon);
+            transform: scale(1.03);
+        }
+
+        /* =========================================================
+           PIE DE PÁGINA (FOOTER)
+           ========================================================= */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ENCABEZADO DE LA PÁGINA -->
+    <header>
+        <h1>NAIRB GAMES</h1>
+        <p>Catálogo Exclusivo de los Mejores Juegos de PS4</p>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL DEL CATÁLOGO -->
+    <main class="catalogo-contenedor">
+
+        <!-- =========================================================
+             JUEGO 1: GOD OF WAR
+             ========================================================= -->
+        <article class="juego-card">
+            <div class="imagen-contenedor">
+                <span class="etiqueta-ps4">PS4</span>
+                <!-- Aquí puedes cambiar la URL dentro de src="" si deseas poner otra imagen -->
+                <img src="https://image.api.playstation.com/vulcan/img/rnd/202010/2217/LsaRVLF2IU2L1FNtu9d3MKLq.jpg" alt="Portada God of War">
+            </div>
+            <div class="juego-info">
+                <div>
+                    <h2>God of War</h2>
+                    <p class="juego-genero">Acción • Aventura • Mitología</p>
+                </div>
+                <!-- INSTRUCCIÓN: Reemplaza el símbolo # dentro de href="#" por tu enlace de descarga real -->
+                <a href="https://linkoficial.transfernow.net/es/cld?utm_source=202503019eESj3Y0" target="_blank" class="btn-descargar">⬇ Descargar</a>
+            </div>
+        </article>
+
+        <!-- =========================================================
+             JUEGO 2: MARVEL'S SPIDER-MAN REMASTERED
+             ========================================================= -->
+        <article class="juego-card">
+            <div class="imagen-contenedor">
+                <span class="etiqueta-ps4">PS4</span>
+                <img src="https://image.api.playstation.com/vulcan/ap/rnd/202011/0402/C784xeOFo2wViCf4m5bxgoeH.png" alt="Portada Marvel's Spider-Man Remastered">
+            </div>
+            <div class="juego-info">
+                <div>
+                    <h2>Marvel's Spider-Man Remastered</h2>
+                    <p class="juego-genero">Acción • Superhéroes • Mundo Abierto</p>
+                </div>
+                <!-- PON AQUÍ TU LINK DE DESCARGA EN href="..." -->
+                <a href="https://linkoficial.transfernow.net/es/cld?utm_source=20250301cJyS2YyV" target="_blank" class="btn-descargar">⬇ Descargar</a>
+            </div>
+        </article>
+
+        <!-- =========================================================
+             JUEGO 3: THE LAST OF US PART I
+             ========================================================= -->
+        <article class="juego-card">
+            <div class="imagen-contenedor">
+                <span class="etiqueta-ps4">PS4</span>
+                <img src="https://image.api.playstation.com/vulcan/ap/rnd/202206/0720/eEczyEMDd2BLa3dtkGJVE9Id.png" alt="Portada The Last of Us Part I">
+            </div>
+            <div class="juego-info">
+                <div>
+                    <h2>The Last of Us Part I</h2>
+                    <p class="juego-genero">Supervivencia • Drama • Acción</p>
+                </div>
+                <!-- PON AQUÍ TU LINK DE DESCARGA EN href="..." -->
+                <a href="https://linkoficial.transfernow.net/es/cld?utm_source=20250228X4yibmln" target="_blank" class="btn-descargar">⬇ Descargar</a>
+            </div>
+        </article>
+
+        <!-- =========================================================
+             JUEGO 4: RED DEAD REDEMPTION 2
+             ========================================================= -->
+        <article class="juego-card">
+            <div class="imagen-contenedor">
+                <span class="etiqueta-ps4">PS4</span>
+                <img src="https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/Hpl5MtwQgOVF9vJqlfui6SDB5Jl4oBSq.png" alt="Portada Red Dead Redemption 2">
+            </div>
+            <div class="juego-info">
+                <div>
+                    <h2>Red Dead Redemption 2</h2>
+                    <p class="juego-genero">Mundo Abierto • Viejo Oeste • Aventura</p>
+                </div>
+                <!-- PON AQUÍ TU LINK DE DESCARGA EN href="..." -->
+                <a href="https://linkoficial.transfernow.net/es/cld?utm_source=20250303RKb7DxsD" target="_blank" class="btn-descargar">⬇ Descargar</a>
+            </div>
+        </article>
+
+        <!-- =========================================================
+             JUEGO 5: ELDEN RING
+             ========================================================= -->
+        <article class="juego-card">
+            <div class="imagen-contenedor">
+                <span class="etiqueta-ps4">PS4</span>
+                <img src="https://image.api.playstation.com/vulcan/ap/rnd/202110/2000/aGhopp3MHppi7kooGE2Dtt8C.png" alt="Portada Elden Ring">
+            </div>
+            <div class="juego-info">
+                <div>
+                    <h2>Elden Ring</h2>
+                    <p class="juego-genero">RPG de Acción • Fantasía Oscura</p>
+                </div>
+                <!-- PON AQUÍ TU LINK DE DESCARGA EN href="..." -->
+                <a href="https://linkoficial.transfernow.net/es/cld?utm_source=20250302p7tTFd57" target="_blank" class="btn-descargar">⬇ Descargar</a>
+            </div>
+        </article>
+
+        <!-- =========================================================
+             JUEGO 6: DARK SOULS REMASTERED
+             ========================================================= -->
+        <article class="juego-card">
+            <div class="imagen-contenedor">
+                <span class="etiqueta-ps4">PS4</span>
+                <img src="https://static.wikia.nocookie.net/dark-souls/images/5/59/Dark_Souls_Remastered_Portada.jpg/revision/latest?cb=20180419171906&path-prefix=es" alt="Portada Dark Souls Remastered">
+            </div>
+            <div class="juego-info">
+                <div>
+                    <h2>Dark Souls Remastered</h2>
+                    <p class="juego-genero">RPG • Desafío • Fantasía</p>
+                </div>
+                <!-- PON AQUÍ TU LINK DE DESCARGA EN href="..." -->
+                <a href="https://linkoficial.transfernow.net/es/cld?utm_source=20250228xsDPHJ0X" target="_blank" class="btn-descargar">⬇ Descargar</a>
+            </div>
+        </article>
+
+        <!-- =========================================================
+             JUEGO 7: NEED FOR SPEED: MOST WANTED
+             ========================================================= -->
+        <article class="juego-card">
+            <div class="imagen-contenedor">
+                <span class="etiqueta-ps4">PS4</span>
+                <img src="https://upload.wikimedia.org/wikipedia/en/8/8e/Need_for_Speed_Most_Wanted_Box_Art.jpg" alt="Portada Need for Speed Most Wanted">
+            </div>
+            <div class="juego-info">
+                <div>
+                    <h2>Need for Speed: Most Wanted</h2>
+                    <p class="juego-genero">Carreras • Velocidad • Persecuciones</p>
+                </div>
+                <!-- PON AQUÍ TU LINK DE DESCARGA EN href="..." -->
+                <a href="https://linkoficial.transfernow.net/es/cld?utm_source=202503014aWRJHD1" target="_blank" class="btn-descargar">⬇ Descargar</a>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <p>© 2025 Nairb Games - Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
